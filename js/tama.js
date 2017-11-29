@@ -9,29 +9,42 @@ export class Tamagotchi {
 
   setHunger(callBackHunger) {
     setInterval(() => {
-      this.foodLevel--;
-      callBackHunger(this.foodLevel);
+      if(!this.isDead()) {
+        this.foodLevel--;
+        callBackHunger(this.foodLevel);
+      }
     }, 1000);
   }
 
   setAttention(callback) {
     setInterval(() => {
-      this.happinessLevel--;
-      callback(this.happinessLevel);
+      if(!this.isDead()) {
+        this.happinessLevel--;
+        callback(this.happinessLevel);
+      }
     }, 1000);
   }
 
   setRest(callbackRest) {
     setInterval(() => {
-      this.restLevel--;
-      callbackRest(this.restLevel);
+      if(!this.isDead()) {
+        this.restLevel--;
+        callbackRest(this.restLevel);
+      }
     }, 1000);
   }
 
-  dead() {
-    return this.foodLevel <= 0 || this.happinessLevel <= 0 || this.restLevel <= 0;
+  setDead(deadCallback) {
+    setInterval(() => {
+      if(this.isDead()) {
+        deadCallback();
+      }
+    }, 500);
   }
 
+  isDead() {
+    return this.foodLevel <= 0 || this.happinessLevel <= 0 || this.restLevel <= 0;
+  }
   feed() {
     this.foodLevel += 10;
   }
@@ -44,11 +57,10 @@ export class Tamagotchi {
     this.restLevel += 10;
   }
 
-
   timePass(){
-    this.foodLevel--;
-    this.happinessLevel--;
-    this.restLevel--;
+    this.foodLevel -= 5;
+    this.happinessLevel -= 5;
+    this.restLevel -= 5;
   }
 
 }

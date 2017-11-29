@@ -43,11 +43,27 @@ $(document).ready(function() {
     $("#attention").text(attention);
     $("#sleep").text(rest);
 
-    Tama.setHunger(h => $("#food").text(h));
+
+    Tama.setHunger(h =>
+      // if ( h <= 0) {
+      //   $("#food").text("Dead");
+      // } else {
+      $("#food").text(h)
+
+    );
+
     Tama.setAttention(anyVariable => {
       $("#attention").text(anyVariable);
     });
     Tama.setRest(r => $("#sleep").text(r));
+
+    let flag = true;
+    Tama.setDead(() => {
+      if(flag) {
+        flag = false;
+        alert("You Tama is dead!!!");
+      }
+    } )
 
     $("#feed").click(function(){
       Tama.feed();
@@ -59,7 +75,9 @@ $(document).ready(function() {
       Tama.rest();
     });
     $("#timepass").click(function(){
-      Tama.timepass();
+      Tama.timePass();
     });
+
+
   });
 });
